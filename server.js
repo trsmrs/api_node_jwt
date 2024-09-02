@@ -1,14 +1,23 @@
 import express from 'express';
-import { configDotenv } from 'dotenv';
-import publicRoutes from './routes/publicRoutes.js'
+import dotenv from 'dotenv';
 
-configDotenv.apply()
+
+dotenv.config()
+
+
+import publicRoutes from './src/routes/publicRoutes.js'
+import privateRoutes from './src/routes/privateRoutes.js'
+
+import auth from './src/middleware/auth.js'
+
+
+
 const app = express();
 app.use(express.json())
 const port = process.env.PORT || 8081
 
 
 app.use('/', publicRoutes)
-
+app.use('/', auth,privateRoutes)
 
 app.listen(port, ()=> console.log('running on port', port))
