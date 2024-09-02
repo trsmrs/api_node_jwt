@@ -15,8 +15,8 @@ const auth = (req, res, next) => {
     try {
 
         const decoded = jwt.verify(token.replace('Bearer ', ''), JWT_SECRET)
-        // const decoded = jwt.verify(token(JWT_SECRET))
-        console.log(decoded)
+        
+        req.userId= decoded.id
 
     } catch(err){
         console.log(err)
